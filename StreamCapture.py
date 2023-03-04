@@ -1,44 +1,85 @@
 import cv2
 import os
+import getaddress
 from datetime import datetime
 
-os.remove('recording/captured_video.mp4')
-RTSP_URL = 'https://hd-auth.skylinewebcams.com/live.m3u8?a=o5942v3vgbmkfcilkrdkcpcm32'
+
+#gets video capture of the stream into a folder
+def main():
+        if os.listdir('recording'):
+                os.remove('recording/captured_video.mp4')
+                print("folder deleted")
+
+        #link below is of cam needed
+        RTSP_URL = getaddress.getAddress("https://www.skylinewebcams.com/en/webcam/italia/liguria/imperia/festival-sanremo-ariston.html")
+
+        print(RTSP_URL)
 
 
 
-os.environ['OPENCV_FFMPEG_CAPTURE_OPTIONS'] = 'rtsp_transport;udp' # Use tcp instead of udp if stream is unstable
+        os.environ['OPENCV_FFMPEG_CAPTURE_OPTIONS'] = 'rtsp_transport;udp' # Use tcp instead of udp if stream is unstable
 
-cap = cv2.VideoCapture(RTSP_URL, cv2.CAP_FFMPEG)
+        cap = cv2.VideoCapture(RTSP_URL, cv2.CAP_FFMPEG)
 
-if not cap.isOpened():
-    print('Cannot open RTSP stream')
-    exit(-1)
+        if not cap.isOpened():
+                print('Cannot open RTSP stream')
+                exit(-1)
 
-frame_width = int(cap.get(3))
-frame_height = int(cap.get(4))
-fps = 30
+        frame_width = int(cap.get(3))
+        frame_height = int(cap.get(4))
+        fps = 30
 
-video_codec = cv2.VideoWriter_fourcc(*'XVID')
-video_output = cv2.VideoWriter('recording/captured_video.mp4', video_codec, fps, (frame_width, frame_height))
+        video_codec = cv2.VideoWriter_fourcc(*'XVID')
+        video_output = cv2.VideoWriter('recording/captured_video.mp4', video_codec, fps, (frame_width, frame_height))
 
-now = datetime.now().second
-nowMinutes = datetime.now().min
-while True:
-    ret, frame = cap.read()
+        myTime = datetime.now()
 
-    if ret == True:
-        video_output.write(frame)
-        cv2.imshow("Video Recording", frame)
-        print(datetime.now().second)
-        #exists after 5 seconds or when the minute passes over
-        if now+5 <= datetime.now().second or nowMinutes < datetime.now().min:
-            break
+        hour = int(myTime.strftime('%H'))
+        min = int(myTime.strftime('%M'))
+        second = int(myTime.strftime('%S'))
+        leftover = 0
 
-    else:
-        break
+        timer = 10# time in minutes 10 recommanded
+        if min+timer <= 60:
+        # less than 59 or equal than no problem
+                print("no more")
+        else:
+        #more then one hour so left over
+                leftover = 60 - min
 
-cap.release()
-video_output.release()
-cv2.destroyAllWindows()
-print('Video was saved!')
+        while True:
+                myTime = datetime.now()
+                nowHour = int(myTime.strftime('%H'))
+                nowMin = int(myTime.strftime('%M'))
+                nowSecond = int(myTime.strftime('%S'))
+                ret, frame = cap.read()
+
+                if ret == True:
+                        video_output.write(frame)
+                        cv2.imshow("Video Recording", frame)
+                        #exists after 5 seconds or when the minute passes over
+
+                        if  leftover == 0:
+                                #no problem no left over
+                                if nowMin >= min+timer:
+                                        print("10 minute passed with left over")
+                                        break
+                        else:
+                                if nowHour == hour+1 and nowMin >= leftover:
+                                        #ITS 10 MINUTE!
+                                        print("10 minute passed")
+                                        break
+                else:
+                        break
+
+
+        
+
+
+        cap.release()
+        video_output.release()
+        cv2.destroyAllWindows()
+        print('Video was saved!')
+
+if __name__ == "__main__":
+        main()
