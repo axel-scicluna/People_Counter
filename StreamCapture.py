@@ -2,7 +2,8 @@ import cv2
 import os
 from datetime import datetime
 
-RTSP_URL = 'https://hd-auth.skylinewebcams.com/live.m3u8?a=kuve7b3gej0ik7l7ra75ov3f93'
+os.remove('recording/captured_video.mp4')
+RTSP_URL = 'https://hd-auth.skylinewebcams.com/live.m3u8?a=o5942v3vgbmkfcilkrdkcpcm32'
 
 
 
