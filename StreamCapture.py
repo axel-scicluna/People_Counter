@@ -6,9 +6,17 @@ from datetime import datetime
 
 #gets video capture of the stream into a folder
 def main():
-        if os.listdir('recording'):
-                os.remove('recording/captured_video.mp4')
-                print("folder deleted")
+        
+        if os.path.isdir('recording'):
+                #exists
+                if os.path.exists('recording/captured_video.mp4'):
+                        os.remove('recording/captured_video.mp4')
+        else:
+                #does not exist
+                os.makedirs('recording')
+
+        
+
 
         #link below is of cam needed
         RTSP_URL = getaddress.getAddress("https://www.skylinewebcams.com/en/webcam/italia/liguria/imperia/festival-sanremo-ariston.html")
