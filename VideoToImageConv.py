@@ -3,8 +3,14 @@ import os
 
 def main():
   # converts the video into images that the A.I can
-  for path in os.listdir('Images'):
+  if os.path.isdir('Images'):
+    #exists
+    for path in os.listdir('Images'):
       os.remove("Images/"+path)
+  else:
+    #does not exist
+    os.makedirs('Images')
+
 
 
   vidcap = cv2.VideoCapture('recording/captured_video.mp4')
