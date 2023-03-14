@@ -1,13 +1,12 @@
 import StreamCapture as stream
 import VideoToImageConv as image
 import ObjectDetection as detect
+import backup as backup
 import time
 
+
 while True:
-    #TO DO 
-    #1. Add global variables in this file for video length and images/frames
-    #2. Add more solid code try catches and other exceptions
-    #3. Add Average Graph file
+    #TO DO
 
     #Don't forget to add model in folder
 
@@ -18,6 +17,8 @@ while True:
     image.main()
     #detect objects
     detect.main()
+    #detects backup
+    backup.main()
     #sleep for 30 min
     print("Done! sleeping for 30 min")
     time.sleep(1800)#1800 30 min
