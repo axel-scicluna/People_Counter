@@ -3,6 +3,7 @@ from datetime import datetime
 import os
 import csv
 
+
 def main():
     #from Images detects people
 
@@ -35,7 +36,7 @@ def main():
 
             #old image code
             #detections = detector.detectObjectsFromImage(input_image= src+"\\Images\\frame"+str(x)+".jpg" , output_image_path= src+"\\Images\\imagenew"+str(x)+".jpg", minimum_percentage_probability=30)
-            detections = detector.detectObjectsFromImage(input_image= src+"\\Images\\frame"+str(x)+".jpg" , minimum_percentage_probability=30)
+            detections = detector.detectObjectsFromImage(input_image= src+"\\Images\\frame"+str(x)+".jpg" , output_image_path= src+"\\Images\\imagenew"+str(x)+".jpg", minimum_percentage_probability=30)
             print("frame"+str(x)+".jpg")
             for y in detections:
                 #checks if its type person since I cant use custom objects

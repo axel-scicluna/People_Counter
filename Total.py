@@ -39,7 +39,7 @@ for index, row in data.iterrows():
             Week[3] += row['People']
         case 'Friday':
             Week[4] += row['People']
-        case 'Saterday':
+        case 'Saturday':
             Week[5] += row['People']
         case 'Sunday':
             Week[6] += row['People']

@@ -35,7 +35,7 @@ def main():
 
         frame_width = int(cap.get(3))
         frame_height = int(cap.get(4))
-        fps = 30
+        fps = 30# 15 for real world speed, 30 for x 2 speed 10 min of footage ~ 4:10 min loss of 40-45 seconds
 
         video_codec = cv2.VideoWriter_fourcc(*'XVID')
         video_output = cv2.VideoWriter('recording/captured_video.mp4', video_codec, fps, (frame_width, frame_height))
@@ -44,10 +44,9 @@ def main():
 
         hour = int(myTime.strftime('%H'))
         min = int(myTime.strftime('%M'))
-        second = int(myTime.strftime('%S'))
         leftover = 0
 
-        timer = 10# time in minutes 10 recommanded
+        timer = 10# 3 min x 4 rotations = 12 minutes
         if min+timer <= 60:
         # less than 59 or equal than no problem
                 print("no more")
@@ -59,10 +58,10 @@ def main():
                 myTime = datetime.now()
                 nowHour = int(myTime.strftime('%H'))
                 nowMin = int(myTime.strftime('%M'))
-                nowSecond = int(myTime.strftime('%S'))
                 ret, frame = cap.read()
 
                 if ret == True:
+                        
                         video_output.write(frame)
                         cv2.imshow("Video Recording", frame)
                         #exists after 5 seconds or when the minute passes over
@@ -71,10 +70,16 @@ def main():
                                 #no problem no left over
                                 if nowMin >= min+timer:
                                         print("10 minute passed with left over")
+                                        print(min)
+                                        print(timer)
+                                        print(nowMin)
                                         break
                         else:
                                 if nowHour == hour+1 and nowMin >= leftover:
                                         #ITS 10 MINUTE!
+                                        print(min)
+                                        print(timer)
+                                        print(nowMin)
                                         print("10 minute passed")
                                         break
                 else:
