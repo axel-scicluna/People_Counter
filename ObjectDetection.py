@@ -8,7 +8,7 @@ def main():
     #from Images detects people
 
     src = str(os.path.split(__file__)[-2])
-
+    print(src)
     detector = ObjectDetection()
     detector.setModelTypeAsRetinaNet()
     detector.setModelPath(src+"\\retinanet_resnet50_fpn_coco-eeacb38b.pth")

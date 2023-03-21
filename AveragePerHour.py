@@ -79,11 +79,13 @@ for index, row in data.iterrows():
             day[dayConvert(weekday)][8] += row['People']
             dayCount[dayConvert(weekday)][8] += 1
 
-for y in range(len(day)):
-    day[dayConvert(weekday)][y] = day[dayConvert(weekday)][y]/dayCount[dayConvert(weekday)][y]
+for week in range(7):
+    for timeRange in range(9):
+        if day[week][timeRange] != 0:
+            day[week][timeRange] = day[week][timeRange]/dayCount[week][timeRange]
 
 columns = ['9 Am',"10 Am","11 Am","12 Am","1 Pm","2 Pm","3 Pm",'4 Pm','5 Pm']
-
+ 
 fig, axs = plt.subplots(7,figsize = (12, 7),layout='constrained')
 fig.suptitle('Weekly Average Per Hour')
 axs[0].bar(columns,day[0],width=0.8)
