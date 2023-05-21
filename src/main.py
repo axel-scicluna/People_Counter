@@ -6,7 +6,6 @@ import time
 
 
 while True:
-    #TO DO
 
     #Don't forget to add model in folder
 
@@ -25,5 +24,5 @@ while True:
     
 
     #Need retinanet_resnet50_fpn_coco-eeacb38b.pth in folder to work
-    #pip uninstall -y (pip freeze) uninstall pip
+    #pip uninstall r dependencies.txt
     #pip install -r dependencies.txt

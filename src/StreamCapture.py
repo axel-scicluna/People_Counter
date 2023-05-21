@@ -46,7 +46,7 @@ def main():
         min = int(myTime.strftime('%M'))
         leftover = 0
 
-        timer = 10# 3 min x 4 rotations = 12 minutes
+        timer = 1# 3 min x 4 rotations = 12 minutes was 10
         if min+timer <= 60:
         # less than 59 or equal than no problem
                 print("no more")
