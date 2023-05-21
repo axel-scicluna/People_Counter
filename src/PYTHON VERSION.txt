@@ -1,0 +1,5 @@
+python version needed
+python 3.10.0 64 bit
+ctrl + shift + p
+
+select interpreter
